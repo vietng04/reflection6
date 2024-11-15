@@ -7,7 +7,7 @@ This repository is designed to support an analysis of sales data from two grocer
 ## File Structure
 
 The repo is structured as:
--   'data' clean data that is used througout the paper
+-   `data` clean data that is used througout the paper
 -   `other` contains details about LLM chat interactions, and sketches.
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the SQL scripts used to clean data.
