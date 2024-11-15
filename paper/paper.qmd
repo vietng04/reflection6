@@ -23,8 +23,6 @@ library(tidyverse)
 library(readr)
 library(ggplot2)
 library(dplyr)
-library(tidyr)
-library(tibble)
 library(knitr)
 
 data <- read_csv("../data/clean_data.csv")
@@ -41,7 +39,8 @@ The findings from this research will help consumers better understand the nature
 # Data {#sec-data}
 
 ## Overview
-We use the statistical programming language R [@citeR]. The data used in this paper came from the [@hammer]. Following @tellingstories, we considerto capture the pricing dynamics of Ambrosia apples across different vendors, we extracted relevant data from a larger dataset containing multiple products and vendors. The initial dataset included information from seven vendors, each offering various products. Our focus was on the specific product, "Ambrosia Apples," which was sold by two vendors—NoFrills and Loblaws.From this comprehensive dataset, we filtered out all other products, isolating only the entries related to Ambrosia apples. The extracted data included key information such as the product ID, product name, current price, and old price. Additionally, a field labeled "other" contained further notes on sale conditions or discounts. The dataset also recorded timestamps, allowing us to track pricing changes over time.
+We use the statistical programming language R [@citeR].Libraries `tidyverse` [@citetidyverse], `knitr` [@citeknitr], `readr`[@citereadr] and `dplyr` [@citedplyr] were used for simulating, cleaning and testing. Graphics were made using `ggplot2` [@citeGG].
+ The data used in this paper came from the [@hammer]. Following @tellingstories, we considerto capture the pricing dynamics of Ambrosia apples across different vendors, we extracted relevant data from a larger dataset containing multiple products and vendors. The initial dataset included information from seven vendors, each offering various products. Our focus was on the specific product, "Ambrosia Apples," which was sold by two vendors—NoFrills and Loblaws.From this comprehensive dataset, we filtered out all other products, isolating only the entries related to Ambrosia apples. The extracted data included key information such as the product ID, product name, current price, and old price. Additionally, a field labeled "other" contained further notes on sale conditions or discounts. The dataset also recorded timestamps, allowing us to track pricing changes over time.
 
 ## Measurement
 
