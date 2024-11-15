@@ -1,10 +1,11 @@
 ---
-title: "Sale difference between Loblaws and Voila"
+title: "Sale difference between Loblaws and NoFrills"
+sub-title: "Is the Sale Price Really a Discount? Analyzing Potential Pre-Sale Price Manipulation"
 author: 
   - Viet Nguyen
   - Doorwan Wang
   - Yihang Xu
-thanks: "Code and data are available at: [https://github.com/RohanAlexander/starter_folder](https://github.com/RohanAlexander/starter_folder)."
+thanks: "Code and data are available at: [https://github.com/vietng04/sale_difference_Loblaws_and_Voila](https://github.com/vietng04/sale_difference_Loblaws_and_Voila)."
 date: today
 date-format: long
 abstract: "Sales promotions are widely used by grocery vendors to attract customers with promises of discounts and savings. However, there is an increasing concern that some of these promotions may not represent genuine price reductions but instead involve pre-sale price inflation—an artificial increase in price just before a sale, creating an illusion of a discount when the price returns to its original level. This research investigates the prevalence of such practices by examining historical price data across a range of grocery products and vendors. By analyzing price trends leading up to and following sales events, we aim to identify patterns of potential price manipulation. Specifically, we assess whether prices exhibit significant increases just prior to advertised sales and how post-sale prices compare to both pre-sale and long-term average prices. Our findings will offer insights into the authenticity of grocery sale discounts, empowering consumers with knowledge to make informed purchasing decisions and encouraging retailers toward transparent pricing practices. This study contributes to a broader understanding of pricing strategies in retail and the implications of promotional tactics on consumer trust."
