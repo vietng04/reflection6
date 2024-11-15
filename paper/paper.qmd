@@ -25,14 +25,13 @@ library(tidyr)
 library(tibble)
 
 data <- read_csv("../data/clean_data.csv")
-
 ```
 
 
 # Introduction
 Sales promotions have long been a cornerstone of retail marketing, with grocers frequently offering "discounts" that claim to provide customers with significant savings. However, some consumers and industry analysts have raised questions about the authenticity of these discounts, speculating that prices may be artificially inflated shortly before a sale, only to be reduced back to their original or slightly lower levels during the promotion. This practice, often referred to as "price jacking," can give the illusion of a significant discount while actually offering little to no real savings.
 
-This research explores the question: **When something's on "sale," was the price artificially increased just before the sale, only to be lowered back to its regular level?** To investigate this, we will analyze historical price data from various grocery vendors to examine patterns preceding and following sales events. By comparing regular and sale prices over time, this study aims to identify any indications of pre-sale price increases, offering insight into whether certain sales are truly beneficial for consumers or merely marketing tactics designed to create a perception of value.
+This research explores the question: When something's on "sale," was the price artificially increased just before the sale, only to be lowered back to its regular level?** To investigate this, we will analyze historical price data from various grocery vendors to examine patterns preceding and following sales events. By comparing regular and sale prices over time, this study aims to identify any indications of pre-sale price increases, offering insight into whether certain sales are truly beneficial for consumers or merely marketing tactics designed to create a perception of value.
 
 The findings from this research will help consumers better understand the nature of grocery discounts and offer guidance on identifying genuine sales. Additionally, the results will provide insights for retailers into the long-term trust implications of their pricing strategies and potential opportunities for increased transparency.
 
@@ -139,11 +138,6 @@ Moreover, additional statistical analysis could be conducted to test whether the
 ## Conclusion
 
 In conclusion, the analysis indicates that **Voila** may be engaging in artificial price elevation ahead of sales, creating an illusion of a larger discount when the price is lowered back to normal during the sale period. **Loblaws**, in contrast, maintains a consistent and stable pricing strategy. While this raises important questions about transparency and fairness in pricing practices, it also provides an opportunity for consumers to make more informed decisions by understanding how sale prices may be manipulated. Further research would be needed to investigate this practice across a broader range of products and vendors, with an emphasis on consumer perceptions and market dynamics.
-
-# Appendix {-}
-
-
-
 
 # References
 
