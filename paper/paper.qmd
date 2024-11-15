@@ -105,12 +105,12 @@ By focusing on two vendors and this specific product, we created a clean, target
 #| warning: false
 #| message: false
 
-clean_data$nowtime <- as.POSIXct(clean_data$nowtime, format="%Y-%m-%d %H:%M:%S")
+data$nowtime <- as.POSIXct(data$nowtime, format="%Y-%m-%d %H:%M:%S")
 
-clean_data$product_vendor <- factor(clean_data$product_vendor, levels = c("NoFrills", "Loblaws"))
+data$product_vendor <- factor(data$product_vendor, levels = c("NoFrills", "Loblaws"))
 
 # Create the line plot
-ggplot(clean_data, aes(x = nowtime)) +
+ggplot(data, aes(x = nowtime)) +
   geom_line(aes(y = current_price, color = product_vendor, linetype = "Current Price")) +
   geom_line(aes(y = old_price, color = product_vendor, linetype = "Old Price")) +
   labs(title = "Current and Old Prices of Ambrosia Apples Over Time",
@@ -126,56 +126,47 @@ We compared the apple prices of nofrills and loblaws at different times (includi
 
 
 # Results
-Price Analysis of "Apples Ambrosia" Across Vendors
-The dataset consists of price data for Apples Ambrosia from two grocery vendors: Voila and Loblaws. For each vendor, prices are observed during periods labeled as "SALE" (Voila) and regular pricing periods (Loblaws). The analysis investigates the following:
 
-Price Comparison Between Vendors:
+## Price Analysis of “Apples Ambrosia” Across Vendors
 
-Voila offers a current price for the apples ranging from $5.49 to $5.99, with an old price of $6.49 for all sale items. This suggests a $1.00 decrease in price during the sale period, indicating that Voila is promoting a sale by reducing the price from the regular price.
-Loblaws, on the other hand, has a consistent current price of $5.49 for all data points. This is lower than the sale price at Voila. Additionally, Loblaws’ old price is slightly higher, averaging around $5.49 to $6.58. However, the regular price at Loblaws appears to be stable without the promotional fluctuations observed at Voila.
-Sale Behavior Analysis at Voila:
+The dataset consists of price data for Apples Ambrosia from two grocery vendors: NoFrills and Loblaws. For each vendor, prices are observed during periods labeled as “SALE” (NoFrills) and regular pricing periods (Loblaws). The analysis investigates the following:
 
-At Voila, the old price for the apples is $6.49, which is advertised as the regular price. The current price during the sale is lower by exactly $1.00, consistently across multiple observations. This consistent pricing pattern across the dataset suggests that Voila uses a fixed price reduction strategy during sales, offering a price decrease of $1.00 off the original price during promotions.
-An important observation is that the old price at Voila (before the sale) is consistently $6.49, which may suggest that prices were artificially elevated just ahead of the sale, only to be reduced back down to the normal sale price during the promotional period. The stable difference between the sale and non-sale prices raises a question about the pricing practices at Voila.
-Price Consistency at Loblaws:
-
-At Loblaws, no specific sale event is recorded, and the prices are relatively stable, with current prices consistently at $5.49 for "Apples Ambrosia." The old price for Loblaws varies slightly, but the regular price does not undergo significant fluctuations like the sales at Voila. This stability in pricing indicates that Loblaws may not engage in price manipulation strategies for sale periods as seen at Voila. The current price of $5.49 is relatively consistent and does not appear to be influenced by any temporary sale-like conditions.
-Conclusion on Price Manipulation:
-
-Based on the price data, Voila may be engaging in price manipulation practices, where the price of the apples is first elevated to $6.49 and then temporarily reduced to $5.49 during the sale period, creating an illusion of a larger discount. This could be viewed as an artificial price increase before a sale, which aligns with the research question regarding whether prices are jacked up before a sale and lowered back to normal.
-Loblaws, by contrast, maintains a more stable pricing structure and does not appear to engage in such pricing practices.
-Overall, this analysis suggests that Voila may be artificially inflating prices ahead of sales to make the sale price appear more significant, while Loblaws maintains a consistent price strategy without such fluctuations. Further statistical analysis, such as testing for significant price changes before and after sales, would be necessary to substantiate this hypothesis more robustly.
+	1.	Price Comparison Between Vendors:
+	•	NoFrills offers a current price for the apples ranging from $5.49 to $5.99, with an old price of $6.49 for all sale items. This indicates a $1.00 decrease in price during the sale period, suggesting that NoFrills is promoting a sale by reducing the price from a regular price point.
+	•	Loblaws, on the other hand, has a consistent current price of $5.49 for all data points, which is generally lower than the sale price at NoFrills. Additionally, Loblaws’ old price fluctuates slightly around $5.49 to $6.58, but the regular price appears stable without the promotional fluctuations observed at NoFrills.
+	2.	Sale Behavior Analysis at NoFrills:
+	•	At NoFrills, the old price for the apples is consistently set at $6.49 before being reduced to $5.49 during sale periods. This consistent pricing behavior suggests that NoFrills applies a fixed discount strategy, where the regular price is consistently reduced by $1.00 during promotional events.
+	•	The stable difference between the sale and non-sale prices raises questions about whether NoFrills may be inflating prices just before the sale period to create the perception of a significant discount. The predictable pattern of a $1.00 reduction during sales could indicate a structured approach to pricing, potentially aimed at attracting price-sensitive customers through a visible discount.
+	3.	Price Consistency at Loblaws:
+	•	Loblaws displays a more stable pricing pattern, with the current price consistently at $5.49 and only slight variation in old prices. Unlike NoFrills, Loblaws does not engage in visible promotional adjustments, indicating a transparent and steady pricing strategy that does not rely on artificial price fluctuations.
+	•	The absence of sale-driven price changes suggests that Loblaws might prioritize a straightforward pricing model that could appeal to customers who value consistency over promotional sales.
+	4.	Conclusion on Price Manipulation:
+	•	The analysis indicates that NoFrills may engage in a pricing strategy where prices are elevated to $6.49 before sales and then reduced back to a sale price of $5.49, giving the impression of a more substantial discount. This strategy could be perceived as artificial price manipulation, potentially intended to create a psychological effect on customers.
+	•	In contrast, Loblaws maintains a consistent price, which may be perceived as more transparent and consumer-friendly, as it avoids the potential illusion of savings through price fluctuations.
 
 # Discussion
-The analysis of price data for **Apples Ambrosia** from **Voila** and **Loblaws** provides insight into pricing strategies across two grocery vendors. Specifically, the research question—whether prices are artificially increased just before a sale, only to be lowered back down—was examined by comparing **current prices** and **old prices** during sale periods at Voila and regular pricing at Loblaws.
 
-## Price Manipulation at Voila
+## Price Manipulation at NoFrills
 
-The results suggest that **Voila** may be engaging in a pricing strategy that aligns with the hypothesis of artificially inflating prices ahead of a sale. At Voila, the **old price** for the apples is consistently **$6.49**, which is advertised as the regular price. However, the **current price** during the sale period is consistently lower at **$5.49**, resulting in a fixed **$1.00 discount** across all sale entries. This consistent reduction implies that **Voila's sales** may be structured to create the illusion of a larger price cut, as prices are raised to **$6.49** just before the sale and then reduced to the normal price of **$5.49** during the sale.
+The findings suggest that NoFrills may engage in an artificial pricing strategy, where prices are raised before a sale period to create a perceived discount when they are subsequently lowered. This strategy involves advertising a stable $6.49 as the “regular price” before reducing it by $1.00 during sales. While this reduction represents a legitimate discount, the consistency of the sale pattern may lead consumers to believe they are receiving a more substantial benefit than they might in a transparent pricing model.
 
-This pricing behavior may lead customers to believe they are receiving a more significant discount than they actually are. Such price adjustments raise questions about transparency in pricing and the ethical implications of using these sales strategies. The strategy of artificially inflating prices before a sale is a tactic often criticized in retail, as it may mislead consumers into thinking they are getting better deals than they truly are. While the **$1.00 discount** in the sale period does represent a legitimate price reduction, it may not be as substantial as it appears when compared to the price manipulation in the lead-up to the sale.
+This approach could influence customer perceptions, potentially encouraging them to take advantage of “discounted” prices that may only appear significant due to prior price increases. The ethical implications of this tactic are worth noting, as customers may be misled about the actual value they are receiving, potentially impacting their trust in the brand.
 
 ## Consistent Pricing at Loblaws
 
-In contrast, **Loblaws** maintains a more consistent pricing structure. The **current price** of **$5.49** for **Apples Ambrosia** is stable across all observations, and there is no recorded **sale** price or fluctuation in price over time. The **old price** at Loblaws varies slightly, but the difference between the **current** and **old price** is not as pronounced as at Voila. This suggests that Loblaws does not engage in the same type of artificial price elevation seen at Voila. Their pricing appears more transparent, without the pre-sale price hikes that would create the illusion of larger discounts.
-
-The stable pricing at **Loblaws** could be interpreted as a more consumer-friendly approach, with less likelihood of misleading customers about the "value" of sales. In fact, this could suggest that **Loblaws** may not use sales as a primary strategy to attract customers, but instead maintains competitive and consistent pricing for everyday purchases. While the price at Loblaws is lower than the sale price at Voila, it is important to consider that Loblaws may be applying a different pricing strategy based on its market positioning, competitive environment, and customer base.
+Loblaws appears to adopt a straightforward pricing strategy, with no apparent sale-driven adjustments. The stable $5.49 current price does not fluctuate, and there are no artificial discounts or price hikes before sales. This consistent approach might build customer trust, as customers can expect the same pricing without worrying about artificial discounts.
 
 ## Implications for Consumers
 
-From a consumer perspective, the price manipulation strategy observed at Voila may have broader implications. Customers who are aware of the practice may become skeptical of sales and discounts, leading them to question the legitimacy of promotional offers. Such skepticism could erode trust in the vendor and result in a loss of customer loyalty. On the other hand, the consistent pricing at Loblaws could build consumer trust, as shoppers may feel confident that the price they see is the price they pay, without the manipulation of artificial sales tactics.
-
-However, it is also worth noting that the **$1.00 price difference** observed between **sale** and **regular price** is relatively modest and might not drastically affect consumer behavior unless similar strategies are applied to a wide range of products. Thus, while the price manipulation issue is noteworthy, it may not be the sole factor driving purchasing decisions in the broader context of grocery shopping, where convenience, availability, and other factors also play a significant role.
+The pricing strategy at NoFrills could lead some consumers to feel misled if they recognize the pattern of artificially inflated prices before sales. In contrast, the transparent pricing at Loblaws might foster consumer loyalty, as shoppers could perceive it as a more honest approach. The modest $1.00 difference between the “sale” and “regular” prices at NoFrills might not heavily impact purchasing behavior, but awareness of these strategies can empower consumers to make informed choices.
 
 ## Limitations and Further Research
 
-While this study provides useful insights, there are limitations to the analysis. The dataset only includes a limited range of data points for **Apples Ambrosia** across two vendors, which may not fully represent the broader pricing strategies employed by the vendors for all product categories. Further research would benefit from a more comprehensive dataset, encompassing a variety of products, seasons, and vendors. This would allow for a more robust understanding of pricing practices across different contexts.
+While this study provides useful insights, it is limited by the narrow scope of focusing on a single product across two vendors. Future studies could expand to include more products, seasonal data, and a wider range of vendors. Additionally, statistical testing of price differences could help confirm the significance of the observed patterns, providing stronger evidence regarding potential price manipulation.
 
-Moreover, additional statistical analysis could be conducted to test whether the observed price differences are statistically significant. This would help quantify the extent to which prices are artificially inflated before sales and provide more concrete evidence for or against the practice.
+# Conclusion
 
-## Conclusion
-
-In conclusion, the analysis indicates that **Voila** may be engaging in artificial price elevation ahead of sales, creating an illusion of a larger discount when the price is lowered back to normal during the sale period. **Loblaws**, in contrast, maintains a consistent and stable pricing strategy. While this raises important questions about transparency and fairness in pricing practices, it also provides an opportunity for consumers to make more informed decisions by understanding how sale prices may be manipulated. Further research would be needed to investigate this practice across a broader range of products and vendors, with an emphasis on consumer perceptions and market dynamics.
+In conclusion, the analysis suggests that NoFrills may utilize price elevation tactics before sales to create an illusion of larger discounts, while Loblaws maintains a stable and transparent pricing model. Understanding these pricing strategies allows consumers to make more informed purchasing decisions. Further research into broader pricing practices would enhance the insights from this analysis, potentially examining consumer responses to these strategies.
 
 # References
 
