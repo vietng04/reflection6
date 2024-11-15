@@ -67,6 +67,7 @@ Through these measurements, we aim to rigorously test the hypothesis that prices
 
 data |>
   filter(product_vendor == "Loblaws") |>
+  head(5) |>
   select(product_name,product_vendor,current_price,old_price,nowtime) |>      # Select the first 3 columns
   kable(
     col.names = c("Product Name","Product Vendor","Product Price(current)","Product Price(old)","Date"),
@@ -85,6 +86,7 @@ data |>
 
 data |>
   filter(product_vendor == "NoFrills") |>
+  head(5) |>
   select(product_name,product_vendor,current_price,old_price,nowtime) |>    
   kable(
     col.names = c("Product Name","Product Vendor","Product Price (current)","Product Price (old)","Date"),
