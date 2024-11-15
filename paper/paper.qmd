@@ -1,0 +1,150 @@
+---
+title: "Sale difference between Loblaws and Voila"
+author: 
+  - Viet Nguyen
+  - Doorwan Wang
+  - Yihang Xu
+thanks: "Code and data are available at: [https://github.com/RohanAlexander/starter_folder](https://github.com/RohanAlexander/starter_folder)."
+date: today
+date-format: long
+abstract: "Sales promotions are widely used by grocery vendors to attract customers with promises of discounts and savings. However, there is an increasing concern that some of these promotions may not represent genuine price reductions but instead involve pre-sale price inflation—an artificial increase in price just before a sale, creating an illusion of a discount when the price returns to its original level. This research investigates the prevalence of such practices by examining historical price data across a range of grocery products and vendors. By analyzing price trends leading up to and following sales events, we aim to identify patterns of potential price manipulation. Specifically, we assess whether prices exhibit significant increases just prior to advertised sales and how post-sale prices compare to both pre-sale and long-term average prices. Our findings will offer insights into the authenticity of grocery sale discounts, empowering consumers with knowledge to make informed purchasing decisions and encouraging retailers toward transparent pricing practices. This study contributes to a broader understanding of pricing strategies in retail and the implications of promotional tactics on consumer trust."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(tibble)
+
+data <- read_csv("../data/clean_data.csv")
+
+```
+
+
+# Introduction
+Sales promotions have long been a cornerstone of retail marketing, with grocers frequently offering "discounts" that claim to provide customers with significant savings. However, some consumers and industry analysts have raised questions about the authenticity of these discounts, speculating that prices may be artificially inflated shortly before a sale, only to be reduced back to their original or slightly lower levels during the promotion. This practice, often referred to as "price jacking," can give the illusion of a significant discount while actually offering little to no real savings.
+
+This research explores the question: **When something's on "sale," was the price artificially increased just before the sale, only to be lowered back to its regular level?** To investigate this, we will analyze historical price data from various grocery vendors to examine patterns preceding and following sales events. By comparing regular and sale prices over time, this study aims to identify any indications of pre-sale price increases, offering insight into whether certain sales are truly beneficial for consumers or merely marketing tactics designed to create a perception of value.
+
+The findings from this research will help consumers better understand the nature of grocery discounts and offer guidance on identifying genuine sales. Additionally, the results will provide insights for retailers into the long-term trust implications of their pricing strategies and potential opportunities for increased transparency.
+
+# Data {#sec-data}
+
+## Overview
+
+We use the statistical programming language R [@citeR].... Our data [@shelter].... Following @tellingstories, we consider...
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+print(data)
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+data_long <- data %>%
+  mutate(price_type = ifelse(!is.na(other), "Sale", "Regular")) %>%
+  pivot_longer(cols = c(current_price, old_price), values_to = "price")
+
+# Create the line plot
+ggplot(data_long, aes(x = product_vendor, y = price, color = price_type, linetype = price_type, group = interaction(price_type, product_vendor))) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~product_vendor) + # Separate lines for each vendor
+  labs(title = "Price Comparison Over Time for Apples Ambrosia",
+       x = "Vendor", 
+       y = "Price", 
+       color = "Price Type", 
+       linetype = "Price Type") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+## Measurement
+To investigate the potential for artificial price increases prior to sales events, this study employs a data-driven measurement approach to track and analyze price fluctuations over time. The measurement strategy is broken down as follows:
+
+1. **Baseline Price Identification**: For each product in the dataset, we identify the "baseline price" as the most frequently observed price outside of any sale periods. This price will serve as a reference point for measuring any deviations leading up to and following sale events.
+
+2. **Sale Periods and Regular Periods**: We classify each time period as either a "sale period" or "regular period" based on the presence of a discount. Sale periods are defined as those where a price reduction is advertised, with "old price" values recorded in the dataset to indicate a discount.
+
+3. **Price Inflation Detection**: To determine if price increases precede sale events, we measure the average price in the 30 days leading up to each sale period and compare it to the baseline price. We record any instances where pre-sale prices exceed the baseline by a significant margin (e.g., more than 5%).
+
+4. **Post-Sale Price Comparison**: After the sale event, we compare the product’s price to both the baseline and pre-sale prices to determine if the price returns to a normal level, remains higher, or is permanently reduced. This comparison helps assess whether the sale was a genuine discount or if it merely restored the price to a regular level.
+
+5. **Statistical Analysis of Patterns**: We use statistical tests, such as paired t-tests or Wilcoxon signed-rank tests, to analyze whether observed price increases before sales are significant across vendors and product families. Additionally, we track the frequency and magnitude of pre-sale price increases across products and vendors to identify any patterns.
+
+Through these measurements, we aim to rigorously test the hypothesis that prices are artificially inflated prior to sales, providing a comprehensive view of price dynamics around promotional periods.
+
+# Results
+Price Analysis of "Apples Ambrosia" Across Vendors
+The dataset consists of price data for Apples Ambrosia from two grocery vendors: Voila and Loblaws. For each vendor, prices are observed during periods labeled as "SALE" (Voila) and regular pricing periods (Loblaws). The analysis investigates the following:
+
+Price Comparison Between Vendors:
+
+Voila offers a current price for the apples ranging from $5.49 to $5.99, with an old price of $6.49 for all sale items. This suggests a $1.00 decrease in price during the sale period, indicating that Voila is promoting a sale by reducing the price from the regular price.
+Loblaws, on the other hand, has a consistent current price of $5.49 for all data points. This is lower than the sale price at Voila. Additionally, Loblaws’ old price is slightly higher, averaging around $5.49 to $6.58. However, the regular price at Loblaws appears to be stable without the promotional fluctuations observed at Voila.
+Sale Behavior Analysis at Voila:
+
+At Voila, the old price for the apples is $6.49, which is advertised as the regular price. The current price during the sale is lower by exactly $1.00, consistently across multiple observations. This consistent pricing pattern across the dataset suggests that Voila uses a fixed price reduction strategy during sales, offering a price decrease of $1.00 off the original price during promotions.
+An important observation is that the old price at Voila (before the sale) is consistently $6.49, which may suggest that prices were artificially elevated just ahead of the sale, only to be reduced back down to the normal sale price during the promotional period. The stable difference between the sale and non-sale prices raises a question about the pricing practices at Voila.
+Price Consistency at Loblaws:
+
+At Loblaws, no specific sale event is recorded, and the prices are relatively stable, with current prices consistently at $5.49 for "Apples Ambrosia." The old price for Loblaws varies slightly, but the regular price does not undergo significant fluctuations like the sales at Voila. This stability in pricing indicates that Loblaws may not engage in price manipulation strategies for sale periods as seen at Voila. The current price of $5.49 is relatively consistent and does not appear to be influenced by any temporary sale-like conditions.
+Conclusion on Price Manipulation:
+
+Based on the price data, Voila may be engaging in price manipulation practices, where the price of the apples is first elevated to $6.49 and then temporarily reduced to $5.49 during the sale period, creating an illusion of a larger discount. This could be viewed as an artificial price increase before a sale, which aligns with the research question regarding whether prices are jacked up before a sale and lowered back to normal.
+Loblaws, by contrast, maintains a more stable pricing structure and does not appear to engage in such pricing practices.
+Overall, this analysis suggests that Voila may be artificially inflating prices ahead of sales to make the sale price appear more significant, while Loblaws maintains a consistent price strategy without such fluctuations. Further statistical analysis, such as testing for significant price changes before and after sales, would be necessary to substantiate this hypothesis more robustly.
+
+# Discussion
+The analysis of price data for **Apples Ambrosia** from **Voila** and **Loblaws** provides insight into pricing strategies across two grocery vendors. Specifically, the research question—whether prices are artificially increased just before a sale, only to be lowered back down—was examined by comparing **current prices** and **old prices** during sale periods at Voila and regular pricing at Loblaws.
+
+## Price Manipulation at Voila
+
+The results suggest that **Voila** may be engaging in a pricing strategy that aligns with the hypothesis of artificially inflating prices ahead of a sale. At Voila, the **old price** for the apples is consistently **$6.49**, which is advertised as the regular price. However, the **current price** during the sale period is consistently lower at **$5.49**, resulting in a fixed **$1.00 discount** across all sale entries. This consistent reduction implies that **Voila's sales** may be structured to create the illusion of a larger price cut, as prices are raised to **$6.49** just before the sale and then reduced to the normal price of **$5.49** during the sale.
+
+This pricing behavior may lead customers to believe they are receiving a more significant discount than they actually are. Such price adjustments raise questions about transparency in pricing and the ethical implications of using these sales strategies. The strategy of artificially inflating prices before a sale is a tactic often criticized in retail, as it may mislead consumers into thinking they are getting better deals than they truly are. While the **$1.00 discount** in the sale period does represent a legitimate price reduction, it may not be as substantial as it appears when compared to the price manipulation in the lead-up to the sale.
+
+## Consistent Pricing at Loblaws
+
+In contrast, **Loblaws** maintains a more consistent pricing structure. The **current price** of **$5.49** for **Apples Ambrosia** is stable across all observations, and there is no recorded **sale** price or fluctuation in price over time. The **old price** at Loblaws varies slightly, but the difference between the **current** and **old price** is not as pronounced as at Voila. This suggests that Loblaws does not engage in the same type of artificial price elevation seen at Voila. Their pricing appears more transparent, without the pre-sale price hikes that would create the illusion of larger discounts.
+
+The stable pricing at **Loblaws** could be interpreted as a more consumer-friendly approach, with less likelihood of misleading customers about the "value" of sales. In fact, this could suggest that **Loblaws** may not use sales as a primary strategy to attract customers, but instead maintains competitive and consistent pricing for everyday purchases. While the price at Loblaws is lower than the sale price at Voila, it is important to consider that Loblaws may be applying a different pricing strategy based on its market positioning, competitive environment, and customer base.
+
+## Implications for Consumers
+
+From a consumer perspective, the price manipulation strategy observed at Voila may have broader implications. Customers who are aware of the practice may become skeptical of sales and discounts, leading them to question the legitimacy of promotional offers. Such skepticism could erode trust in the vendor and result in a loss of customer loyalty. On the other hand, the consistent pricing at Loblaws could build consumer trust, as shoppers may feel confident that the price they see is the price they pay, without the manipulation of artificial sales tactics.
+
+However, it is also worth noting that the **$1.00 price difference** observed between **sale** and **regular price** is relatively modest and might not drastically affect consumer behavior unless similar strategies are applied to a wide range of products. Thus, while the price manipulation issue is noteworthy, it may not be the sole factor driving purchasing decisions in the broader context of grocery shopping, where convenience, availability, and other factors also play a significant role.
+
+## Limitations and Further Research
+
+While this study provides useful insights, there are limitations to the analysis. The dataset only includes a limited range of data points for **Apples Ambrosia** across two vendors, which may not fully represent the broader pricing strategies employed by the vendors for all product categories. Further research would benefit from a more comprehensive dataset, encompassing a variety of products, seasons, and vendors. This would allow for a more robust understanding of pricing practices across different contexts.
+
+Moreover, additional statistical analysis could be conducted to test whether the observed price differences are statistically significant. This would help quantify the extent to which prices are artificially inflated before sales and provide more concrete evidence for or against the practice.
+
+## Conclusion
+
+In conclusion, the analysis indicates that **Voila** may be engaging in artificial price elevation ahead of sales, creating an illusion of a larger discount when the price is lowered back to normal during the sale period. **Loblaws**, in contrast, maintains a consistent and stable pricing strategy. While this raises important questions about transparency and fairness in pricing practices, it also provides an opportunity for consumers to make more informed decisions by understanding how sale prices may be manipulated. Further research would be needed to investigate this practice across a broader range of products and vendors, with an emphasis on consumer perceptions and market dynamics.
+
+# Appendix {-}
+
+
+
+
+# References
+
+
